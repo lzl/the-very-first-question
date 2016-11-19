@@ -1,26 +1,35 @@
 //index.js
 //获取应用实例
-var app = getApp()
+const app = getApp()
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {}
+    userInfo: {},
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad() {
     console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
+    const that = this
+
+    app.getUserInfo((userInfo) => {
       that.setData({
-        userInfo:userInfo
+        userInfo,
       })
     })
-  }
+
+    wx.request({
+      url: 'http://localhost:3000/motto/最初の問題',
+      success(res) {
+        console.log(res)
+        that.setData({
+          motto: res.data
+        })
+      }
+    })
+  },
 })

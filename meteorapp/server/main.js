@@ -1,5 +1,8 @@
-import { Meteor } from 'meteor/meteor';
+JsonRoutes.add("get", "/motto/:text", (req, res, next) => {
+  const text = req.params.text
+  console.log(text)
 
-Meteor.startup(() => {
-  // code to run on server at startup
-});
+  JsonRoutes.sendResult(res, {
+    data: text,
+  })
+})
